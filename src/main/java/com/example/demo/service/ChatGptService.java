@@ -12,18 +12,17 @@ import java.util.Map;
 
 @Service
 public class ChatGptService {
-    private InputValidator inputValidator = InputValidator.createStrict();
+    private final InputValidator inputValidator = InputValidator.createStrict();
     private final WebClient webClient;
     @Value("${API_KEY}")
     private String apiKey;
 
-    public ChatGptService( InputValidator inputValidator) {
+    public ChatGptService() {
         this.webClient = WebClient.builder()
                 .baseUrl("https://api.openai.com/v1")
                 .defaultHeader("Authorization", "Bearer " + apiKey)
                 .defaultHeader("Content-Type", "application/json")
                 .build();
-        this.inputValidator = inputValidator;
     }
 
     public Mono<String> getChatResponse(String userMessage) {
@@ -66,6 +65,7 @@ public class ChatGptService {
 
         return webClient.post()
                 .uri("/chat/completions")
+                .header("Authorization", "Bearer " + apiKey)
                 .bodyValue(requestBody)
                 .retrieve()
                 .bodyToMono(Map.class)
