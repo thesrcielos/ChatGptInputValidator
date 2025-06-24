@@ -62,9 +62,9 @@ Each validation step is implemented as a separate handler class:
 
     ContentQualityValidationHandler
 
-    TokenEstimationHandler
-
 A builder is provided to compose validation chains programmatically.
+
+![design](assets/img.png)
 
 ### Example Configurations
 ```
