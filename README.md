@@ -14,6 +14,16 @@ You will need the following installed:
 - [Maven 3.8+](https://maven.apache.org/install.html)
 - Git (optional, for cloning)
 - An ChatGpt Api Key for this create a .env file and create a variable called API_KEY and paste the key
+
+### API REST
+There are two endpoints in this project.
+
+* /api/ask?question=<question> this is an ednpoint to ask to ChatGpt without input validation.
+* /api/enhanced/ask?question=<question> this is an ednpoint to ask to ChatGpt with input validation.
+
+#### Deployed App
+https://chatgptservice-gpbzgkd7anadbhee.westus-01.azurewebsites.net/
+
 ### Installing
 
 Clone the repository:
