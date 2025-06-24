@@ -16,11 +16,6 @@ public class ChatGptController {
         this.chatGptService = chatGptService;
     }
 
-    @GetMapping("/ask")
-    public String ask(@RequestParam String question) {
-        return chatGptService.getChatResponse(question).block();
-    }
-
     @GetMapping("/enhanced/ask")
     public String askEnhanced(@RequestParam String question) {
         return chatGptService.getChatResponseEnhanced(question).block();

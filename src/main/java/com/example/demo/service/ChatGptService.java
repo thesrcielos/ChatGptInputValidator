@@ -25,27 +25,6 @@ public class ChatGptService {
                 .build();
     }
 
-    public Mono<String> getChatResponse(String userMessage) {
-        Map<String, Object> requestBody = Map.of(
-                "model", "gpt-3.5-turbo",
-                "messages", List.of(
-                        Map.of("role", "system", "content", "Eres un asistente útil."),
-                        Map.of("role", "user", "content", userMessage)
-                )
-        );
-
-        return webClient.post()
-                .uri("/chat/completions")
-                .bodyValue(requestBody)
-                .header("Authorization", "Bearer " + apiKey)
-                .retrieve()
-                .bodyToMono(Map.class)
-                .map(response -> {
-                    List<Map<String, Object>> choices = (List<Map<String, Object>>) response.get("choices");
-                    Map<String, Object> message = (Map<String, Object>) choices.get(0).get("message");
-                    return (String) message.get("content");
-                });
-    }
 
     public Mono<String> getChatResponseEnhanced(String userMessage) {
         ValidationResult result = inputValidator.validateInput(userMessage);

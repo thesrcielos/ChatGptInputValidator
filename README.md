@@ -16,10 +16,9 @@ You will need the following installed:
 - An ChatGpt Api Key for this create a .env file and create a variable called API_KEY and paste the key
 
 ### API REST
-There are two endpoints in this project.
+There is one endpoint in this project.
 
-* /api/ask?question=<question> this is an ednpoint to ask to ChatGpt without input validation.
-* /api/enhanced/ask?question=<question> this is an ednpoint to ask to ChatGpt with input validation.
+* /api/enhanced/ask?question=<question> this is an endpoint to ask to ChatGpt with input validation.
 
 #### Deployed App
 https://chatgptservice-gpbzgkd7anadbhee.westus-01.azurewebsites.net/
@@ -51,6 +50,45 @@ if (result.isValid()) {
 } else {
     System.out.println("Invalid: " + result.getReason());
 }
+```
+
+## Chain of Responsibility Pattern in the Input Validator Code
+
+This code implements the **Chain of Responsibility** design pattern to create a modular and extensible input validation system.
+
+### 🔗 What is Chain of Responsibility?
+
+The Chain of Responsibility pattern allows an input to be passed through a sequence of handlers, where each handler performs a specific check or processing step. Each handler can decide to:
+- Pass the input to the **next handler** in the chain, or
+- **Stop** the chain and return a validation error.
+
+### 🧱 How It's Used in the Code
+
+- Each validation rule is implemented as a subclass of the abstract `ValidationHandler`.
+- Handlers are linked using the `setNext()` method to form a chain.
+- The `handle()` method processes the input step-by-step through this chain.
+
+### 🛠️ Benefits of This Approach
+
+- **Modularity**: Each validation is isolated in its own class.
+- **Flexibility**: You can easily add, remove, or reorder validation steps.
+- **Reusability**: Different chains can be created for different use cases (e.g., strict, lenient, custom).
+- **Maintainability**: New rules can be added without changing the core logic.
+
+### ✅ Example
+
+A typical validation chain might look like:
+
+```
+nullHandler
+    .setNext(cleaningHandler)
+    .setNext(lengthHandler)
+    .setNext(contentHandler)
+    .setNext(spamHandler)
+    .setNext(uselessHandler)
+    .setNext(qualityHandler)
+    .setNext(tokenHandler);
+
 ```
 
 ## Design
